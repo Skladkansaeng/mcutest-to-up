@@ -13,7 +13,7 @@ void setup() {
   for(uint8 i=0;i<16;i++){
     mcp.pinMode(i,INPUT);
   }
-
+  Serial.begin(9600);
   #ifdef useMCP
   pinMode(swReset,INPUT);
   pinMode(swMode,INPUT);
@@ -22,29 +22,26 @@ void setup() {
   pinMode(ledPin,OUTPUT);
 }
 
-bool readDiv(){
-  bool swDiv = false;
+bool readDip(){
+  bool swDip = false;
+  Serial.print("Dip switch :");
   for(int8_t i=0;i<8;i++){
-      swDiv |= mcp.digitalRead(i);
+      swDip |= mcp.digitalRead(i);
   }
   #ifdef useMCP
-    swDiv |= mcp.digitalRead(swReset);
-
-    swDiv |= mcp.digitalRead(swMode);
-
-    swDiv |= mcp.digitalRead(swFormat);
+    swDip |= mcp.digitalRead(swReset);
+    swDip |= mcp.digitalRead(swMode);
+    swDip |= mcp.digitalRead(swFormat);
   # else
-    swDiv |= digitalRead(swReset);
-
-    swDiv |= digitalRead(swMode);
-
-    swDiv |= digitalRead(swFormat);
+    swDip |= digitalRead(swReset);
+    swDip |= digitalRead(swMode);
+    swDip |= digitalRead(swFormat);
   #endif
-    return swDiv;
+    return swDip;
 }
 
 void loop() {
-  if(readDiv()){
+  if(readDip()){
     digitalWrite(ledPin,HIGH);
   }
   else{
