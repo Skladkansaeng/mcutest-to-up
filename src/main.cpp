@@ -26,7 +26,7 @@ uint8_t readDiv(){
   uint16_t swDiv =0 ;
   for(int8_t i=0;i<8;i++){
       swDiv &= mcp.digitalRead(i);
-      swDiv <<= 1
+      swDiv <<= 1 ;
   }
   #ifdef useMCP
     swDiv &= mcp.digitalRead(swReset);
@@ -45,7 +45,7 @@ uint8_t readDiv(){
 }
 
 void loop() {
-  if(readDiv() != ){
+  if(readDiv() != 0){
     digitalWrite(ledPin,HIGH);
   }
   else{
